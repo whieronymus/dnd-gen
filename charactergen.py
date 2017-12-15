@@ -2,36 +2,36 @@ from random import randint
 from rollstats import roll_stats
 
 def class_generator():
-	"""
-	Returns a randomly generated D&D 5e Class
-	"""
-	with open('classlist.txt') as class_select:
-		classList = class_select.read().split(',')
-	class_select.closed
+    """
+    Returns a randomly generated D&D 5e Class
+    """
+    with open('classlist.txt') as class_select:
+        class_list = class_select.read().split(',')
 
-	return classList[randint(0,len(classList) - 1)]
+    return class_list[randint(0,len(class_list) - 1)]
 
 def stat_by_class(c, i):
-	"""
-	Class is a 1 word string representing a character class
-	Returns a list sorted according to what classes need
-	"""
-	if c == 'Barbarian' or c == 'Fighter':
-		i[1], i[2], i[3], i[4] = i[2], i[1], i[4], i[3]
-	elif c == 'Bard' or c == 'Warlock' or  c == 'Sorcerer':
-		i[0], i[1], i[2], i[3], i[4], i[5] = i[5], i[2], i[1], i[4], i[3], i[0]
-	elif c == 'Druid' or c == 'Cleric':
-		i[0], i[1], i[2], i[4] = i[2], i[4], i[1], i[0]
-	elif c == 'Monk':
-		i[0], i[1], i[2], i[3], i[4], i[5] = i[3], i[0], i[2], i[5], i[1], i[4]
-	elif c == 'Paladin':
-		i[1], i[3], i[4], i[5] = i[4], i[5], i[3], i[1]
-	elif c == 'Rogue':
-		i[0], i[1], i[3], i[4], i[5] = i[5], i[0], i[1], i[3], i[4]
-	elif c == 'Ranger':
-		i[0], i[1], i[3], i[4], i[5] = i[3], i[0], i[4], i[1], i[5]
+    """
+    c is a 1 word string representing a character class
+    i is a list of randomized attribute stats
+    Returns a list sorted according to priority of what classes need
+    """
+    if c == 'Barbarian' or c == 'Fighter':
+        i[1], i[2], i[3], i[4] = i[2], i[1], i[4], i[3]
+    elif c == 'Bard' or c == 'Warlock' or  c == 'Sorcerer':
+        i[0], i[1], i[2], i[3], i[4], i[5] = i[5], i[2], i[1], i[4], i[3], i[0]
+    elif c == 'Druid' or c == 'Cleric':
+        i[0], i[1], i[2], i[4] = i[2], i[4], i[1], i[0]
+    elif c == 'Monk':
+        i[0], i[1], i[2], i[3], i[4], i[5] = i[3], i[0], i[2], i[5], i[1], i[4]
+    elif c == 'Paladin':
+        i[1], i[3], i[4], i[5] = i[4], i[5], i[3], i[1]
+    elif c == 'Rogue':
+        i[0], i[1], i[3], i[4], i[5] = i[5], i[0], i[1], i[3], i[4]
+    elif c == 'Ranger':
+        i[0], i[1], i[3], i[4], i[5] = i[3], i[0], i[4], i[1], i[5]
 
-	return i
+    return i
 
 
 character_class = class_generator()
