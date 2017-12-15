@@ -17,11 +17,12 @@ def advantage_disadvantage(rolls):
         roll_advantage[1] += randint(1,20)
         roll_advantage.sort()
         counter += roll_advantage[1]
-    
+
     return (counter / int(rolls))
 
 rolls = input("How many times would you like to roll?: ")
 
-print("Effective difference is +" + (str(advantage_disadvantage(rolls) - 10.5)))
-    
+print("Effective difference is +" + \
+      (str(advantage_disadvantage(rolls) - 10.5)))
+
 
