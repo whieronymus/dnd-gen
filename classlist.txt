@@ -1,0 +1,1 @@
+Barbarian,Bard,Druid,Fighter,Monk,Ranger,Rogue,Sorcerer,Warlock,Wizard
