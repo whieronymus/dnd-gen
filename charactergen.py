@@ -19,11 +19,13 @@ def stat_by_class(c, i):
     if c == 'Barbarian' or c == 'Fighter':
         i[1], i[2], i[3], i[4] = i[2], i[1], i[4], i[3]
     elif c == 'Bard' or c == 'Warlock' or  c == 'Sorcerer':
-        i[0], i[1], i[2], i[3], i[4], i[5] = i[5], i[2], i[1], i[4], i[3], i[0]
+        i[0], i[1], i[2], i[3], i[4], i[5] = \
+        i[5], i[2], i[1], i[4], i[3], i[0]
     elif c == 'Druid' or c == 'Cleric':
         i[0], i[1], i[2], i[4] = i[2], i[4], i[1], i[0]
     elif c == 'Monk':
-        i[0], i[1], i[2], i[3], i[4], i[5] = i[3], i[0], i[2], i[5], i[1], i[4]
+        i[0], i[1], i[2], i[3], i[4], i[5] = \
+        i[3], i[0], i[2], i[5], i[1], i[4]
     elif c == 'Paladin':
         i[1], i[3], i[4], i[5] = i[4], i[5], i[3], i[1]
     elif c == 'Rogue':
