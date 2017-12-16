@@ -19,15 +19,23 @@ def data_entry(keyword, data_input):
 
     conn.commit()
 
-create_table()
+def delete_data():
+    c.execute('DELETE FROM character_data WHERE keyword = "Background"')
+    conn.commit()
+
+# create_table()
 
 class_list = ['Barbarian', 'Bard', 'Druid', 'Fighter', 'Monk', 'Ranger',
               'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
 race_list = ['Hill Dwarf', 'Mountain Dwarf', 'Drow', 'High Elf', 'Wood Elf',
              'Lightfoot Halfling', 'Stout Halfling', 'Human', 'Dragonborn',
              'Forest Gnome', 'Rock Gnome', 'Half-Elf', 'Half-Orc', 'Tiefling']
-for i in class_list:
-    data_entry('Class', i)
+background_list = ['Acolyte', 'Charlatan', 'Criminal', 'Entertainer',
+                   'Folk Hero', 'Guild Artisan', 'Hermit', 'Noble',
+                   'Outlander', 'Sage', 'Sailor', 'Soldier', 'Urchin']
+for i in background_list:
+    data_entry('Background', i)
+
 
 c.close
 conn.close()

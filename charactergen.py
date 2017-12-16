@@ -5,28 +5,17 @@ from rollstats import roll_stats
 conn = sqlite3.connect('characterdata.db')
 c = conn.cursor()
 
-def class_generator():
+
+def random_select(select):
     """
-    Returns a randomly generated D&D 5e Class
+    Returns a randomly generated D&D 5e Class/Race/Background
     """
-    class_list = []
-    c.execute("SELECT * FROM character_data WHERE keyword = 'Class'")
+    list_build = []
+    c.execute("SELECT * FROM character_data WHERE keyword = ?", (select,))
     for row in c.fetchall():
-        class_list.append(row[1])
+        list_build.append(row[1])
 
-    return class_list[randint(0,len(class_list) - 1)]
-
-
-def race_generator():
-    """
-    Returns a randomly generated D&D 5e Race
-    """
-    race_list = []
-    c.execute("SELECT * FROM character_data WHERE keyword = 'Race'")
-    for row in c.fetchall():
-        race_list.append(row[1])
-
-    return race_list[randint(0,len(race_list) - 1)]
+    return list_build[randint(0, len(list_build) - 1)]
 
 
 def stat_by_class(c, i):
@@ -37,7 +26,7 @@ def stat_by_class(c, i):
     """
     if c == 'Barbarian' or c == 'Fighter':
         i[1], i[2], i[3], i[4] = i[2], i[1], i[4], i[3]
-    elif c == 'Bard' or c == 'Warlock' or  c == 'Sorcerer':
+    elif c == 'Bard' or c == 'Warlock' or c == 'Sorcerer':
         i[0], i[1], i[2], i[3], i[4], i[5] = \
         i[5], i[2], i[1], i[4], i[3], i[0]
     elif c == 'Druid' or c == 'Cleric':
@@ -55,6 +44,7 @@ def stat_by_class(c, i):
         i[0], i[2], i[3], i[4], i[5] = i[5], i[3], i[0], i[2], i[4]
 
     return i
+
 
 def race_adjust(r, i):
     """
@@ -115,9 +105,12 @@ def race_adjust(r, i):
 
     return i
 
-character_class = class_generator()
-character_race = race_generator()
-print("You are a "+character_race + " " + character_class)
+
+character_class = random_select("Class")
+character_race = random_select("Race")
+character_background = random_select("Background")
+print("You are a " + character_race + " " + character_class + " " +
+      character_background)
 rolled_stats = roll_stats()
 # print("Rolled Stats:     " + str(rolled_stats))
 class_stat_sort = stat_by_class(character_class, rolled_stats)
