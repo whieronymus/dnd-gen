@@ -2,13 +2,17 @@ from random import randint
 import sqlite3
 from rollstats import roll_stats
 
+conn = sqlite3.connect('characterdata.db')
+c = conn.cursor()
 
 def class_generator():
     """
     Returns a randomly generated D&D 5e Class
     """
-    with open('classlist.txt') as class_select:
-        class_list = class_select.read().split(',')
+    class_list = []
+    c.execute("SELECT * FROM character_class WHERE keyword = 'Class'")
+    for row in c.fetchall():
+        class_list.append(row[3])
 
     return class_list[randint(0,len(class_list) - 1)]
 
@@ -17,8 +21,10 @@ def race_generator():
     """
     Returns a randomly generated D&D 5e Race
     """
-    with open('racelist.txt') as race_select:
-        race_list = race_select.read().split(',')
+    race_list = []
+    c.execute("SELECT * FROM character_race WHERE keyword = 'Race'")
+    for row in c.fetchall():
+        race_list.append(row[3])
 
     return race_list[randint(0,len(race_list) - 1)]
 
@@ -45,6 +51,8 @@ def stat_by_class(c, i):
         i[0], i[1], i[3], i[4], i[5] = i[5], i[0], i[1], i[3], i[4]
     elif c == 'Ranger':
         i[0], i[1], i[3], i[4], i[5] = i[3], i[0], i[4], i[1], i[5]
+    elif c == 'Wizard':
+        i[0], i[2], i[3], i[4], i[5] = i[5], i[3], i[0], i[2], i[4]
 
     return i
 
@@ -91,9 +99,13 @@ def race_adjust(r, i):
     if r == "Rock Gnome":
         i[3] += 2
         i[2] += 1
-    if r == "Half-ELf":
-        i[0] += 1
-        i[1] += 1
+    if r == "Half-Elf":
+        j = i.index(max(i[0:5]))
+        i[j] += 1
+        i_copy = i.copy()
+        i_copy[j] = 0
+        i[i.index(max(i_copy[0:5]))] += 1
+        i[5] += 2
     if r == "Half-Orc":
         i[0] += 2
         i[2] += 1
@@ -107,12 +119,11 @@ character_class = class_generator()
 character_race = race_generator()
 print("You are a "+character_race + " " + character_class)
 rolled_stats = roll_stats()
-print("Rolled Stats:     " + str(rolled_stats))
-add_racial_bonus = race_adjust(character_race, rolled_stats)
-print("Add Racial Bonus: " + str(add_racial_bonus))
-class_stat_sort = stat_by_class(character_class, add_racial_bonus)
-
-print("Sort by Class:    " + str(class_stat_sort))
+# print("Rolled Stats:     " + str(rolled_stats))
+class_stat_sort = stat_by_class(character_class, rolled_stats)
+# print("Sort by Class:    " + str(class_stat_sort))
+add_racial_bonus = race_adjust(character_race, class_stat_sort)
+# print("Add Racial Bonus: " + str(add_racial_bonus))
 print("Strength: " + str(add_racial_bonus[0]))
 print("Dexterity: " + str(add_racial_bonus[1]))
 print("Constitution: " + str(add_racial_bonus[2]))
