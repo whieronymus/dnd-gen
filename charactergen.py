@@ -10,9 +10,9 @@ def class_generator():
     Returns a randomly generated D&D 5e Class
     """
     class_list = []
-    c.execute("SELECT * FROM character_class WHERE keyword = 'Class'")
+    c.execute("SELECT * FROM character_data WHERE keyword = 'Class'")
     for row in c.fetchall():
-        class_list.append(row[3])
+        class_list.append(row[1])
 
     return class_list[randint(0,len(class_list) - 1)]
 
@@ -22,9 +22,9 @@ def race_generator():
     Returns a randomly generated D&D 5e Race
     """
     race_list = []
-    c.execute("SELECT * FROM character_race WHERE keyword = 'Race'")
+    c.execute("SELECT * FROM character_data WHERE keyword = 'Race'")
     for row in c.fetchall():
-        race_list.append(row[3])
+        race_list.append(row[1])
 
     return race_list[randint(0,len(race_list) - 1)]
 
