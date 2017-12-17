@@ -106,6 +106,42 @@ def race_adjust(r, i):
     return i
 
 
+
+def ability_modifier_list(ability_scores):
+    """
+    i is a list of ability scores after they're rolled, sorted, and racial
+    bonus is applied
+    returns a list of ability modifiers"""
+    ability_modifiers = []
+    for i in ability_scores:
+        ability_modifiers.append((i-10)//2)
+
+    return ability_modifiers
+
+def skill_modifier(ability_scores):
+    skill_list = []
+    skill_list.append(ability_scores[1])
+    skill_list.append(ability_scores[4])
+    skill_list.append(ability_scores[3])
+    skill_list.append(ability_scores[0])
+    skill_list.append(ability_scores[5])
+    skill_list.append(ability_scores[3])
+    skill_list.append(ability_scores[4])
+    skill_list.append(ability_scores[5])
+    skill_list.append(ability_scores[3])
+    skill_list.append(ability_scores[4])
+    skill_list.append(ability_scores[3])
+    skill_list.append(ability_scores[4])
+    skill_list.append(ability_scores[5])
+    skill_list.append(ability_scores[5])
+    skill_list.append(ability_scores[3])
+    skill_list.append(ability_scores[1])
+    skill_list.append(ability_scores[1])
+    skill_list.append(ability_scores[4])
+
+    return skill_list
+
+print('')
 character_class = random_select("Class")
 character_race = random_select("Race")
 character_background = random_select("Background")
@@ -117,9 +153,33 @@ class_stat_sort = stat_by_class(character_class, rolled_stats)
 # print("Sort by Class:    " + str(class_stat_sort))
 add_racial_bonus = race_adjust(character_race, class_stat_sort)
 # print("Add Racial Bonus: " + str(add_racial_bonus))
+print('')
 print("Strength: " + str(add_racial_bonus[0]))
 print("Dexterity: " + str(add_racial_bonus[1]))
 print("Constitution: " + str(add_racial_bonus[2]))
 print("Intelligence: " + str(add_racial_bonus[3]))
 print("Wisdom: " + str(add_racial_bonus[4]))
 print("Charisma: " + str(add_racial_bonus[5]))
+
+modifiers = ability_modifier_list(add_racial_bonus)
+skill_list = skill_modifier(modifiers)
+
+print('')
+print('Acrobatics: ' + str(skill_list[0]))
+print('Animal Handling: ' + str(skill_list[1]))
+print('Arcana: ' + str(skill_list[2]))
+print('Athletics: ' + str(skill_list[3]))
+print('Deception: ' + str(skill_list[4]))
+print('History: ' + str(skill_list[5]))
+print('Insight: ' + str(skill_list[6]))
+print('Intimidation: ' + str(skill_list[7]))
+print('Investigation: ' + str(skill_list[8]))
+print('Medicine: ' + str(skill_list[9]))
+print('Nature: ' + str(skill_list[10]))
+print('Perception: ' + str(skill_list[11]))
+print('Performance: ' + str(skill_list[12]))
+print('Persuasion: ' + str(skill_list[13]))
+print('Religion: ' + str(skill_list[14]))
+print('Sleight of Hand: ' + str(skill_list[15]))
+print('Stealth: ' + str(skill_list[16]))
+print('Survival: ' + str(skill_list[17]))
