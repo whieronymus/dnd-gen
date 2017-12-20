@@ -5,6 +5,9 @@ from rollstats import roll_stats
 conn = sqlite3.connect('characterdata.db')
 c = conn.cursor()
 
+# Will be a variable in the future
+proficiency = 2
+
 
 def random_select(select):
     """
@@ -105,7 +108,55 @@ def race_adjust(r, i):
 
     return i
 
+def background_proficiencies(skills, char_background, prof_bonus):
+    """
+    skills is a list of character skills calculated after abiltity scores are
+    factored in
+    char_class is a string representing the character's background
+    prof_bonus is a variable integer that goes up when a character levels
+    returns a list of skills
+    """
+    if char_background == "Acolyte":
+        skills[6] += prof_bonus
+        skills[14] += prof_bonus
+    if char_background == "Charlatan":
+        skills[4] += prof_bonus
+        skills[15] += prof_bonus
+    if char_background == "Criminal":
+        skills[4] += prof_bonus
+        skills[16] += prof_bonus
+    if char_background == "Entertainer":
+        skills[0] += prof_bonus
+        skills[12] += prof_bonus
+    if char_background == "Folk Hero":
+        skills[1] += prof_bonus
+        skills[17] += prof_bonus
+    if char_background == "Guild Artisan":
+        skills[6] += prof_bonus
+        skills[13] += prof_bonus
+    if char_background == "Hermit":
+        skills[9] += prof_bonus
+        skills[14] += prof_bonus
+    if char_background == "Noble":
+        skills[5] += prof_bonus
+        skills[13] += prof_bonus
+    if char_background == "Outlander":
+        skills[3] += prof_bonus
+        skills[17] += prof_bonus
+    if char_background == "Sage":
+        skills[2] += prof_bonus
+        skills[5] += prof_bonus
+    if char_background == "Sailor":
+        skills[3] += prof_bonus
+        skills[11] += prof_bonus
+    if char_background == "Soldier":
+        skills[3] += prof_bonus
+        skills[7] += prof_bonus
+    if char_background == "Urchin":
+        skills[15] += prof_bonus
+        skills[16] += prof_bonus
 
+    return skills
 
 def ability_modifier_list(ability_scores):
     """
@@ -163,23 +214,25 @@ print("Charisma: " + str(add_racial_bonus[5]))
 
 modifiers = ability_modifier_list(add_racial_bonus)
 skill_list = skill_modifier(modifiers)
+prof_skill_list = background_proficiencies(skill_list, character_background,
+                                           proficiency)
 
 print('')
-print('Acrobatics: ' + str(skill_list[0]))
-print('Animal Handling: ' + str(skill_list[1]))
-print('Arcana: ' + str(skill_list[2]))
-print('Athletics: ' + str(skill_list[3]))
-print('Deception: ' + str(skill_list[4]))
-print('History: ' + str(skill_list[5]))
-print('Insight: ' + str(skill_list[6]))
-print('Intimidation: ' + str(skill_list[7]))
-print('Investigation: ' + str(skill_list[8]))
-print('Medicine: ' + str(skill_list[9]))
-print('Nature: ' + str(skill_list[10]))
-print('Perception: ' + str(skill_list[11]))
-print('Performance: ' + str(skill_list[12]))
-print('Persuasion: ' + str(skill_list[13]))
-print('Religion: ' + str(skill_list[14]))
-print('Sleight of Hand: ' + str(skill_list[15]))
-print('Stealth: ' + str(skill_list[16]))
-print('Survival: ' + str(skill_list[17]))
+print('Acrobatics: ' + str(prof_skill_list[0]))
+print('Animal Handling: ' + str(prof_skill_list[1]))
+print('Arcana: ' + str(prof_skill_list[2]))
+print('Athletics: ' + str(prof_skill_list[3]))
+print('Deception: ' + str(prof_skill_list[4]))
+print('History: ' + str(prof_skill_list[5]))
+print('Insight: ' + str(prof_skill_list[6]))
+print('Intimidation: ' + str(prof_skill_list[7]))
+print('Investigation: ' + str(prof_skill_list[8]))
+print('Medicine: ' + str(prof_skill_list[9]))
+print('Nature: ' + str(prof_skill_list[10]))
+print('Perception: ' + str(prof_skill_list[11]))
+print('Performance: ' + str(prof_skill_list[12]))
+print('Persuasion: ' + str(prof_skill_list[13]))
+print('Religion: ' + str(prof_skill_list[14]))
+print('Sleight of Hand: ' + str(prof_skill_list[15]))
+print('Stealth: ' + str(prof_skill_list[16]))
+print('Survival: ' + str(prof_skill_list[17]))
