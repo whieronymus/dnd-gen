@@ -1,6 +1,8 @@
 from random import randint
+import random
 import sqlite3
 from rollstats import roll_stats
+import pdb
 
 conn = sqlite3.connect('characterdata.db')
 c = conn.cursor()
@@ -17,8 +19,9 @@ def random_select(select):
     c.execute("SELECT * FROM character_data WHERE keyword = ?", (select,))
     for row in c.fetchall():
         list_build.append(row[1])
+    pdb.set_trace()
 
-    return list_build[randint(0, len(list_build) - 1)]
+    return random.choice(list_build)
 
 
 def stat_by_class(c, i):
