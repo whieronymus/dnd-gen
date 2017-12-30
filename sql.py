@@ -52,7 +52,7 @@ class SQLConnect:
             print(exc_type, exc_value, traceback)
             print("bye")
             print_exc_plus(traceback)
-            pdb.set_trace()
+            # pdb.set_trace()
         self.close()
         return self
 
